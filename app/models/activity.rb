@@ -6,5 +6,4 @@ class Activity < ActiveRecord::Base
         "#{name} - #{duration}min"
     end
 
-    
 end
