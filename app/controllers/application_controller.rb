@@ -26,7 +26,6 @@ class ApplicationController < Sinatra::Base
     new_user.to_json
   end
 
-  
   patch "/users/:id" do
     user = User.find(params[:id])
     user.update(
@@ -42,4 +41,6 @@ class ApplicationController < Sinatra::Base
     user.destroy
     user.to_json 
   end
+
+  
 end
