@@ -3,13 +3,13 @@ class UsersController < Sinatra::Base
 
     get "/users" do
         users = User.all
-        users.to_json
+        users.to_json(include: {activities: {include: :chemical}})
     end
     
-    get "/users/:id" do
-        user = User.find(params[:id])
-        user.to_json
-    end
+    # get "/users/:id" do
+    #     user = User.find(params[:id])
+    #     user.to_json(include: :activities )
+    # end
     
     post "/users" do
         new_user = User.create(
@@ -21,19 +21,22 @@ class UsersController < Sinatra::Base
         new_user.to_json
     end
     
-    patch "/users/:id" do
-        user = User.find(params[:id])
-        user.update(
-          first_name: params[:first_name],
-          last_name: params[:last_name],
-          image_url: params[:image_url]
-        )
-        user.to_json
-    end
+    # patch "/users/:id" do
+    #     user = User.find(params[:id])
+    #     user.update(
+    #       first_name: params[:first_name],
+    #       last_name: params[:last_name],
+    #       image_url: params[:image_url]
+    #     )
+    #     user.to_json
+    # end
     
     delete "/users/:id" do
         user = User.find(params[:id])
+        user.activities.each do |activity|
+            activity.destroy
+        end
         user.destroy
-        user.to_json 
+        user.to_json
     end
 end
