@@ -17,3 +17,4 @@ run ApplicationController
 #additional controllers go here
 use UsersController
 use ActivitiesController
+use ChemicalsController

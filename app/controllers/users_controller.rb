@@ -1,16 +1,16 @@
 class UsersController < Sinatra::Base
     set :default_content_type, 'application/json'
 
-    get "/users" do
+    get "/users/all" do
         users = User.all
         users.to_json(include: {activities: {include: :chemical}})
     end
     
-    # get "/users/:id" do
-    #     user = User.find(params[:id])
-    #     user.to_json(include: :activities )
-    # end
-    
+    get "/users/:id" do
+        user = User.find(params[:id])
+        user.to_json(include: :activities )
+    end
+     
     post "/users" do
         new_user = User.create(
           username: params[:username],
